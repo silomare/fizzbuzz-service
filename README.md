@@ -1,14 +1,13 @@
 # fizzbuzz-service 
 *(build/run instructions for windows)*
 
-1. **clone repo**
+-1. **clone repo**
 
 
-2. **build**
-
-mvn clean package site  
-   1 check reports:  
-   open target/site/project-reports.html  
+-2. **build**
+    mvn clean package site  
+    - 2.1 check reports:   
+      open target/site/project-reports.html  
 
 
 3) start service:
