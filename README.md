@@ -1,4 +1,4 @@
-# fizzbuzz-service
+# fizzbuzz-service (build/run instructions for windows)
 
 1) clone repo
 
