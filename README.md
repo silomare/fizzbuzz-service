@@ -3,19 +3,18 @@
 
 -1. **clone repo**
 
-
--2. **build**
-    $ mvn clean package site  
+-2. **build**  
+	$ mvn clean package site  
     - 2.1 check reports:   
         - open target/site/project-reports.html  
 
 
--3. **start service**
-    $ cd target
+-3. **start service**  
+    $ cd target  
     $ java -jar fizzbuzz-service-0.0.1-SNAPSHOT.jar --sink=kafkaSink
  
 
--4. **monitor kafka topic**
+-4. **monitor kafka topic**  
     - 4.1- start zookeper  
            $ .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties  
     - 4.2- start kafka server  
