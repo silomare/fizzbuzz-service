@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.github.silomare.practice.kafka</groupId>
+	<artifactId>fizzbuzz-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>fizzbuzz-service</name>
+	<description>FizzBuzz Service</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
+		<java.version>1.8</java.version>
+
+		<dependency.locations.enabled>false</dependency.locations.enabled>
+		
+		<!-- do I need to override 1.1.7? (by starter-parent), latest is 2.1.2 
+		<spring-kafka.version>1.2.2.RELEASE</spring-kafka.version> -->
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-devtools</artifactId>
+	        <optional>true</optional>
+	    </dependency>
+    
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework.kafka</groupId>
+		  <artifactId>spring-kafka-test</artifactId>
+		  <scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-surefire-plugin</artifactId>
+	        </plugin>
+			<plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>cobertura-maven-plugin</artifactId>
+			  <version>2.7</version>
+				<configuration>
+				  <instrumentation>
+				    <excludes> <!-- skipping through parsing error on lambdas -->
+				      <exclude>io/github/silomare/practice/kafka/fizzbuzz/logic/lambda/*.class</exclude>
+				    </excludes>
+				  </instrumentation>
+				</configuration>			  
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- needed to add due to gemfire artifact warning -->
+    <repositories>
+        <repository>
+            <id>spring</id>
+            <url>http://repo.spring.io/plugins-release</url>
+        </repository>
+    </repositories>
+
+	<reporting>
+		<plugins>
+			<!-- static code analyzers -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<configLocation>google_checks.xml</configLocation>
+				</configuration>
+			</plugin>
+		    <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-pmd-plugin</artifactId>
+		      <version>3.9.0</version>
+			      <configuration>
+			        <skipEmptyReport>false</skipEmptyReport>
+			      </configuration>
+		    </plugin>
+			<plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>findbugs-maven-plugin</artifactId>
+			  <version>3.0.1</version>
+			</plugin>
+			
+			<!-- test report -->
+	      <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-surefire-report-plugin</artifactId>
+	        <version>2.20.1</version>
+	      </plugin>
+      			
+			<!-- coverage -->
+			<plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>cobertura-maven-plugin</artifactId>
+			  <version>2.7</version>
+			</plugin>
+
+			<!-- default reports -->            				    
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-project-info-reports-plugin</artifactId>
+			  <version>2.9</version>
+			  <reportSets>
+			    <reportSet>
+			      <reports/> <!-- disabling default reports to avoid this error/bug in the output: 
+			      [ERROR] 'dependencies.dependency.systemPath' for com.sun:tools:jar must specify an absolute path but is /home/tclement/plf-release-tools/tools/jdk1.7.0_67/jre/../lib/tools.jar 
+			      see: https://jira.exoplatform.org/projects/CRASH/issues/CRASH-247?filter=allopenissues -->
+			    </reportSet>
+			  </reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+	
+</project>
