@@ -7,6 +7,10 @@
 
 mvn clean package site
 
+2.1) check reports:
+
+open target/site/project-reports.html
+
 
 3) start service:
 
