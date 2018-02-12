@@ -7,7 +7,7 @@
 
 mvn clean package site
 
-2.1) check reports:
+2.1- check reports:
 
 open target/site/project-reports.html
 
